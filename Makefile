@@ -16,6 +16,10 @@ CFLAGS += -DUNUSED="__attribute__((unused))"
 CFLAGS += -DNDEBUG
 LDFLAGS =
 
+# ThreadSanitizer
+CFLAGS += -fsanitize=thread
+LDFLAGS += -fsanitize=thread
+
 # standard build rules
 .SUFFIXES: .o .c
 .c.o:

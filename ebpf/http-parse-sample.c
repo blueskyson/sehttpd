@@ -44,7 +44,7 @@ int http_filter(struct __sk_buff *skb)
         goto DROP;
 
     /* shift cursor forward for dynamic ip header size */
-    void *_ = cursor_advance(cursor, (ip_header_length - sizeof(*ip)));
+    cursor_advance(cursor, (ip_header_length - sizeof(*ip)));
 
     struct tcp_t *tcp = cursor_advance(cursor, sizeof(*tcp));
 
