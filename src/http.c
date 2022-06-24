@@ -229,8 +229,11 @@ void do_request(void *ptr)
             MIN(MAX_BUF - (r->last - r->pos) - 1, MAX_BUF - r->last % MAX_BUF);
 
         int n = read(fd, plast, remain_size);
-        if (n == remain_size)
-            n += read(fd, r->buf, MAX_BUF - n);
+        if (n == remain_size) {
+            int n_again = read(fd, r->buf, MAX_BUF - n);  // read again
+            if (n_again > 0)
+                n += n_again;
+        }
         assert(r->last - r->pos < MAX_BUF && "request buffer overflow!");
 
         if (n == 0) /* EOF */
